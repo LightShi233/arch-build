@@ -9,7 +9,7 @@ jobs:
   buildAUR:
     strategy:
       matrix:
-        repos: [android-aarch64-libxml2 , wine-staging-wow64 , bilibili-bin , imfile-bin ,breath-theme-git]
+        repos: [android-aarch64-libxml2 , wine-staging-wow64 , bilibili-appimage , imfile ,breath-theme-git]
         include:
           - repos: git-cola
             preinstall-pkgs: "at-spi2-core"
