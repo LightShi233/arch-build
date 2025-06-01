@@ -9,7 +9,7 @@ jobs:
   buildAUR:
     strategy:
       matrix:
-        repos: [osu-lazer, weechat-notify-send, fpp, redsocks, git-cola, realesrgan-ncnn-vulkan, python-torchaudio, python-torchinfo, python-rapidocr-onnxruntime, darkly]
+        repos: [android-aarch64-libxml2 , wine-staging-wow64 , bilibili-bin , imfile-bin]
         include:
           - repos: git-cola
             preinstall-pkgs: "at-spi2-core"
