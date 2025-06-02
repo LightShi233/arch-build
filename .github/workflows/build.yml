@@ -9,10 +9,10 @@ jobs:
   buildAUR:
     strategy:
       matrix:
-        repos: [android-aarch64-libxml2 , wine-staging-wow64 , bilibili-appimage , imfile ,breath-theme-git]
+        repos: [android-aarch64-libxml2 , wine-staging-wow64 ,lib32-libxml2-legacy ,imfile ,breath-theme-git]
         include:
-          - repos: git-cola
-            preinstall-pkgs: "at-spi2-core"
+          - repos: bilibili-bin
+            preinstall-pkgs: "electron31"
           - repos: realesrgan-ncnn-vulkan
             preinstall-pkgs: "vulkan-intel"
 
