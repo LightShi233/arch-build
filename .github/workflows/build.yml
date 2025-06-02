@@ -12,7 +12,7 @@ jobs:
         repos: [android-aarch64-libxml2 , wine-staging-wow64 ,lib32-libxml2-legacy ,imfile ,breath-theme-git]
         include:
           - repos: bilibili-bin
-            preinstall-pkgs: "electron31"
+            preinstall-pkgs: "electron33-bin"
           - repos: realesrgan-ncnn-vulkan
             preinstall-pkgs: "vulkan-intel"
 
