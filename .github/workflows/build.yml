@@ -9,7 +9,7 @@ jobs:
   buildAUR:
     strategy:
       matrix:
-        repos: [android-aarch64-libxml2 , wine-staging-wow64 ,lib32-libxml2-legacy ,imfile ,breath-theme-git]
+        repos: [android-aarch64-libxml2 , proton-cachyos ,lib32-libxml2-legacy ,imfile ,breath-theme-git]
         include:
           - repos: bilibili-bin
             preinstall-pkgs: "electron33-bin"
