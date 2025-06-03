@@ -9,10 +9,8 @@ jobs:
   buildAUR:
     strategy:
       matrix:
-        repos: [android-aarch64-libxml2 , proton-cachyos ,lib32-libxml2-legacy ,imfile ,breath-theme-git]
+        repos: [android-aarch64-libxml2 , wine-cachyos ,lib32-libxml2-legacy ,imfile ,breath-theme-git]
         include:
-          - repos: bilibili-bin
-            preinstall-pkgs: "electron33-bin"
           - repos: realesrgan-ncnn-vulkan
             preinstall-pkgs: "vulkan-intel"
 
