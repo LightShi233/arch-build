@@ -39,28 +39,7 @@ jobs:
         artifacts: "./*/*.zst"
         token: ${{ secrets.GITHUB_TOKEN }}
           
-  uploadToOneDrive:      
-    runs-on: ubuntu-latest
-    if: always()
-    needs: [buildAUR]
-
-    steps:
-      - uses: actions/checkout@v4
-      
-      - uses: actions/download-artifact@v4
-        id: download
-
-      - name: Display structure of downloaded files
-        run: ls -R ${{ steps.download.outputs.download-path }}
-      
-      - uses: ./create-db-and-upload-action
-        with:
-          RCLONE_CONFIG_CONTENT: ${{ secrets.RCLONE_CONFIG }}
-          RCLONE_CONFIG_NAME: onedrive
-          dest_path: /archrepo
-          repo_name: vifly
-          gpg-privatekey: ${{ secrets.gpg_private_key }}
-          local_path: ${{ steps.download.outputs.download-path }}
+  
 
       - uses: ncipollo/release-action@v1
         with:
