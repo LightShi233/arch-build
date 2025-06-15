@@ -9,7 +9,7 @@ jobs:
   buildAUR:
     strategy:
       matrix:
-        repos: [android-aarch64-libxml2 ,winecx-wow64 , wine-pure-git ,lib32-libxml2-legacy ,imfile ,breath-theme-git]
+        repos: [android-aarch64-libxml2 , wine-pure-git ,lib32-libxml2-legacy ,imfile ,breath-theme-git ,cromite-bin,zen-browser-bin]
         include:
           - repos: realesrgan-ncnn-vulkan
             preinstall-pkgs: "vulkan-intel"
