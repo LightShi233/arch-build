@@ -6,6 +6,8 @@ useradd builder -m
 echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 chmod -R a+rw .
 
+sudo bash -c 'pacman-key --recv-key DBE7D3DD8C81D58D0A13D0E76BC26A17B9B7018A && pacman-key --lsign-key DBE7D3DD8C81D58D0A13D0E76BC26A17B9B7018A && (grep -q "\[alerque\]" /etc/pacman.conf || echo -e "\n[alerque]\nServer = https://arch.alerque.com/\$arch" >> /etc/pacman.conf) && pacman -Syu'
+
 cat << EOM >> /etc/pacman.conf
 [archlinuxcn]
 Server = https://repo.archlinuxcn.org/x86_64
