@@ -6,14 +6,19 @@ useradd builder -m
 echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 chmod -R a+rw .
 
-pacman-key --recv-key DBE7D3DD8C81D58D0A13D0E76BC26A17B9B7018A && pacman-key --lsign-key DBE7D3DD8C81D58D0A13D0E76BC26A17B9B7018A && (grep -q "\[alerque\]" /etc/pacman.conf || echo -e "\n[alerque]\nServer = https://arch.alerque.com/\$arch" >> /etc/pacman.conf) && pacman -Syu
 
 cat << EOM >> /etc/pacman.conf
 [archlinuxcn]
 Server = https://repo.archlinuxcn.org/x86_64
 EOM
+cat << EOM >> /etc/pacman.conf
+[alerque]
+Server = https://arch.alerque.com/x86_64
+EOM
 echo -e "[multilib]\nInclude = /etc/pacman.d/mirrorlist" | sudo tee -a /etc/pacman.conf
 pacman-key --init
+pacman-key --recv-keys 63CC496475267693
+pacman-key --lsign-key 63CC496475267693
 pacman-key --lsign-key "farseerfc@archlinux.org"
 pacman -Sy --noconfirm && pacman -S --noconfirm archlinuxcn-keyring
 pacman -Syu --noconfirm archlinux-keyring
