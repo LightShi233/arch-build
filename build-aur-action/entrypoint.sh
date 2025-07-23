@@ -9,7 +9,7 @@ chmod -R a+rw .
 
 cat << EOM >> /etc/pacman.conf
 [archlinuxcn]
-Server = https://repo.archlinuxcn.org/x86_64
+Server = https://mirrors.cernet.edu.cn/archlinuxcn/x86_64
 EOM
 cat << EOM >> /etc/pacman.conf
 [alerque]
