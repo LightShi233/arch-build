@@ -31,27 +31,11 @@ jobs:
         path: ./*/*.pkg.tar.zst
         name: ${{ matrix.repos }}
         if-no-files-found: error
-        
-    - uses: ncipollo/release-action@v1
-      with:
-        allowUpdates: true
-        tag: "packages"
-        artifacts: "./*/*.zst"
-        token: ${{ secrets.GITHUB_TOKEN }}
-          
-  
-    - uses: ncipollo/release-action@v1
-      with:
-        allowUpdates: true
-        tag: "packages"
-        artifacts: "./*/*.zst"
-        token: ${{ secrets.GITHUB_TOKEN }}
 
-  uploadToOneDrive:      
+  createRepo:
     runs-on: ubuntu-latest
-    if: always()
     needs: [buildAUR]
-
+    
     steps:
       - uses: actions/checkout@v4
 
@@ -61,18 +45,21 @@ jobs:
       - name: Display structure of downloaded files
         run: ls -R ${{ steps.download.outputs.download-path }}
 
-      - uses: ./create-db-and-upload-action
+      - name: Collect all package files
+        run: |
+          mkdir -p ./collected_packages
+          find ${{ steps.download.outputs.download-path }} -type f -name "*.tar.zst" -exec cp {} ./collected_packages/ \;
+          ls -la ./collected_packages/
+
+      - uses: ./create-repo-action
         with:
-          RCLONE_CONFIG_CONTENT: ${{ secrets.RCLONE_CONFIG }}
-          RCLONE_CONFIG_NAME: onedrive
-          dest_path: /archrepo
           repo_name: vifly
           gpg-privatekey: ${{ secrets.gpg_private_key }}
-          local_path: ${{ steps.download.outputs.download-path }}
+          gpg-passphrase: ${{ secrets.gpg_passphrase }}
 
       - uses: ncipollo/release-action@v1
         with:
           allowUpdates: true
           tag: "packages"
-          artifacts: "./upload_packages/*.sig,./upload_packages/*.files,./upload_packages/*.db,./upload_packages/*.tar.gz"
+          artifacts: "./repo/*"
           token: ${{ secrets.GITHUB_TOKEN }}

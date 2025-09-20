@@ -6,7 +6,6 @@ useradd builder -m
 echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 chmod -R a+rw .
 
-
 cat << EOM >> /etc/pacman.conf
 [archlinuxcn]
 Server = https://mirrors.ocf.berkeley.edu/archlinuxcn/x86_64
@@ -15,7 +14,8 @@ cat << EOM >> /etc/pacman.conf
 [alerque]
 Server = https://arch.alerque.com/x86_64
 EOM
-echo -e "[multilib]\nInclude = /etc/pacman.d/mirrorlist" | sudo tee -a /etc/pacman.conf
+echo -e "[multilib]
+Include = /etc/pacman.d/mirrorlist" | sudo tee -a /etc/pacman.conf
 pacman-key --init
 pacman-key --recv-keys 63CC496475267693
 pacman-key --lsign-key 63CC496475267693
@@ -28,5 +28,3 @@ if [ ! -z "$INPUT_PREINSTALLPKGS" ]; then
 fi
 
 sudo --set-home -u builder yay -S --noconfirm --builddir=./ "$pkgname"
-cd "./$pkgname" || exit 1
-python3 ../build-aur-action/encode_name.py

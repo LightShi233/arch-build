@@ -1,0 +1,17 @@
+name: 'Generate Arch Repo database'
+inputs:
+  repo_name:
+    required: true
+  gpg-privatekey:
+    description: 'Your GPG private key, used to sign repo.'
+    required: false
+  gpg-passphrase:
+    description: 'Passphrase for your GPG private key.'
+    required: false
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    repo_name: ${{ inputs.repo_name }}
+    gpg_key: ${{ inputs.gpg-privatekey }}
+    gpg_passphrase: ${{ inputs.gpg-passphrase }}
