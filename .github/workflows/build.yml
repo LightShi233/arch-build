@@ -9,11 +9,13 @@ jobs:
   buildAUR:
     strategy:
       matrix:
-        repos: [android-aarch64-libxml2 , openlist-git ,lib32-libxml2-legacy ,imfile ,breath-theme-git ,cromite-bin,zen-browser-bin,bilibili-bin,opencode,qwen-code]
+        repos: [openlist-git ,imfile ,breath-theme-git ,cromite-bin ,zen-browser-bin ,opencode ,qwen-code ,wine-cachyos-opt]
         include:
           - repos: realesrgan-ncnn-vulkan
             preinstall-pkgs: "vulkan-intel"
-
+        include:
+          - repos: bilibili-bin
+            preinstall-pkgs: "electron28-bin"
       fail-fast: false
       
     runs-on: ubuntu-latest
