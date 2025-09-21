@@ -37,10 +37,10 @@ jobs:
           preinstallPkgs: ${{ matrix.preinstall-pkgs }}
 
       - uses: actions/upload-artifact@v4
-        if-no-files-found: error
         with:
           name: ${{ matrix.repos }}
           path: ./*/*.pkg.tar.zst
+          if-no-files-found: error
 
   createRepo:
     needs: [buildAUR]
