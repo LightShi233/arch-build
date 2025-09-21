@@ -3,54 +3,56 @@ name: BUILD
 on:
   push:
   schedule:
-    - cron:  '1 */8 * * *'
+    - cron: '1 */8 * * *'
 
 jobs:
   buildAUR:
     strategy:
       matrix:
-        repos: [openlist-git ,imfile ,breath-theme-git ,cromite-bin ,zen-browser-bin ,opencode ,qwen-code ,wine-cachyos-opt]
+        repos: [openlist-git, imfile, breath-theme-git, cromite-bin, zen-browser-bin, opencode, qwen-code, wine-cachyos-opt]
         include:
           - repos: realesrgan-ncnn-vulkan
             preinstall-pkgs: "vulkan-intel"
-        include:
           - repos: bilibili-bin
             preinstall-pkgs: "electron28-bin"
       fail-fast: false
-      
+
     runs-on: ubuntu-latest
-    
+    timeout-minutes: 120
+
     steps:
-    - uses: actions/checkout@v4
-    
-    - uses: ./build-aur-action
-      with:
-        repo-name: ${{ matrix.repos }}
-        preinstallPkgs: ${{ matrix.preinstall-pkgs }}
-    
-    - uses: actions/upload-artifact@v4
-      with:
-        path: ./*/*.pkg.tar.zst
-        name: ${{ matrix.repos }}
+      - uses: actions/checkout@v4
+
+      - uses: ./build-aur-action
+        with:
+          repo-name: ${{ matrix.repos }}
+          preinstallPkgs: ${{ matrix.preinstall-pkgs }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          path: ./*/*.pkg.tar.zst
+          name: ${{ matrix.repos }}
         if-no-files-found: error
 
   createRepo:
     runs-on: ubuntu-latest
     needs: [buildAUR]
-    
+
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/download-artifact@v4
         id: download
+        with:
+          path: ./downloaded_artifacts
 
       - name: Display structure of downloaded files
-        run: ls -R ${{ steps.download.outputs.download-path }}
+        run: ls -R ./downloaded_artifacts
 
       - name: Collect all package files
         run: |
           mkdir -p ./collected_packages
-          find ${{ steps.download.outputs.download-path }} -type f -name "*.tar.zst" -exec cp {} ./collected_packages/ \;
+          find ./downloaded_artifacts -type f -name "*.tar.zst" -exec cp {} ./collected_packages/ \;
           ls -la ./collected_packages/
 
       - uses: ./create-repo-action
