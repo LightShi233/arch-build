@@ -138,8 +138,8 @@ if __name__ == "__main__":
     old_packages = get_old_packages(local_packages, remote_packages)
     for i in old_packages:
         print(f"delete {CONFIG_NAME} {i.filename}")
-        rclone_delete(i.filename)
         with suppress(RuntimeError):
+            rclone_delete(i.filename)
             rclone_delete(i.filename + ".sig")
 
     download_local_miss_files(local_packages, remote_packages, old_packages)
