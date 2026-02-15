@@ -9,12 +9,10 @@ jobs:
   buildAUR:
     strategy:
       matrix:
-        repos: [osu-lazer, weechat-notify-send, fpp, redsocks, git-cola, realesrgan-ncnn-vulkan, python-torchaudio, python-torchinfo, python-rapidocr, ludusavi]
+        repos: [quickshell-git, noctalia-shell, switchhosts-git, electron30-bin]
         include:
-          - repos: git-cola
-            preinstall-pkgs: "at-spi2-core"
-          - repos: realesrgan-ncnn-vulkan
-            preinstall-pkgs: "vulkan-intel"
+          - repos: switchhosts-git
+            preinstall-pkgs: "electron30-bin"
 
       fail-fast: false
       
