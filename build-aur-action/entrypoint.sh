@@ -21,8 +21,8 @@ pacman -S --noconfirm yay
 if [ ! -z "$INPUT_PREINSTALLPKGS" ]; then
     pacman -S --noconfirm "$INPUT_PREINSTALLPKGS"
 fi
-
-sudo --set-home -u builder yay -S --noconfirm --builddir=./ "electron30-bin $pkgname"
+sudo --set-home -u builder yay -S --noconfirm --builddir=./ electron30-bin
+sudo --set-home -u builder yay -S --noconfirm --builddir=./ "$pkgname"
 
 # Find the actual build directory (pkgbase) created by yay.
 # Some AUR packages use a different pkgbase directory name,
