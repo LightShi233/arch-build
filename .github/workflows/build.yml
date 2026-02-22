@@ -10,10 +10,6 @@ jobs:
     strategy:
       matrix:
         repos: [quickshell-git, noctalia-shell, switchhosts-git, electron30-bin]
-        include:
-          - repos: switchhosts-git
-            preinstall-pkgs: "electron30-bin"
-
       fail-fast: false
       
     runs-on: ubuntu-latest
